@@ -1,0 +1,181 @@
+/*
+          control={control}
+          rules={{
+            validate: () => {
+              return isChecked1 === "disponible" || isChecked1 === "noDisponible";
+            }
+          }}          
+          render={({ field: { onChange, value } }) => (
+            <CheckBox
+              checked={isChecked1 === "disponible"}
+              onPress={() => handleCheck("disponible" , 1)}
+              title="Disponible"
+            />
+          )}
+          name="isChecked1"
+          defaultValue={false}
+          />
+        {errors.isChecked?.type=="validate" && <Text>Este campo es requerido.</Text>}
+
+          <Controller
+          control={control}
+          rules={{
+            validate: () => {
+              return isChecked2 === "noDisponible" || isChecked2 === "disponible";
+            }
+          }}
+          render={({ field: { onChange, value } }) => (
+            <CheckBox
+              checked={isChecked2 === "noDisponible"}
+              onPress={() => handleCheck("noDisponible",2)}
+              title="No disponible"
+            />
+          )}
+          name="isChecked2"
+          defaultValue={false}
+          />
+          {errors.noDisponible?.type=="validate" && <Text>Este campo 'no disponible' es requerido.</Text>}
+
+          */
+         /* ESTA ES LA RUTINA DE GUARDAR CARRRO RENTAR
+           const verificarUsuario = (data) => {
+      const usuarioRegistrado = usuariosRegistrados.find((u) => u.usuario === data.usuario);
+      const carroRegistrado = nuevosCarrosRegistrados.find((u) => u.platenumber === data.platenumber)
+      const carroRegistradoChecked = carrosRegistrados && carrosRegistrados.find((u) => u.isChecked === data.isChecked);
+
+    if(usuarioRegistrado){
+        console.log(usuariosRegistrados, 'arreglo usuario');
+
+        if(carroRegistrado){
+            console.log(carrosRegistrados, 'arreglo carro');
+
+            if(carroRegistrado.isChecked === false){
+                const nuevoCanuevosCarrosRegistradosrroRentar = { 
+                    usuario: data.usuario,
+                    platenumber: data.platenumber, 
+                    isChecked:  data.isChecked="no disponible", 
+                  };
+                  rentarCarros.push(nuevoCarroRentar);
+                  setErrormess('');
+                  reset();
+                 // console.log(nuevoCarroRentar)
+                  console.log(carrosRegistrados, 'guardó el registro')
+                  navigation.navigate('CarrosGuardados', {rentarCarros});
+
+            }else{
+                setErrormess('Este carro no está disponible para rentar - gilma')
+                console.log("El carro no está disponible - gilma");
+            }
+        }else{
+            setErrormess('Este carro no está registrado')
+            console.log("El carro no se encuentra registrado");
+        }
+    }else{
+        setErrormess('Este usuario no está registrado')
+        console.log('El usuario no está registrado')
+
+    }    
+
+    /*
+      if (carroRegistrado){
+        if (carroRegistrado.isChecked === false) {
+            const nuevoCarroRentar = { 
+                usuario: data.usuario,
+                platenumber: data.platenumber, 
+                isChecked:  data.isChecked, 
+              };
+              rentarCarros.push(nuevoCarroRentar);
+              setErrormess('');
+              reset();
+             // console.log(nuevoCarroRentar)
+              console.log(carrosRegistrados, 'guardó el registro')
+        } 
+        
+        else {
+            setErrormess('Este carro no está disponible para rentar')
+            console.log("El carro no está disponible");
+        }
+      } 
+      else {
+        console.log("El carro no se encuentra registrado");
+      }  
+*/
+      /*
+        if(usuarioRegistrado){
+            console.log(usuariosRegistrados, 'arreglo usuario');
+
+            if(carroRegistrado){
+            console.log(carrosRegistrados, 'arreglo carro');
+               
+                if(carroRegistradoChecked == "disponible"){
+                    console.log(carroRegistrado, carroRegistradoChecked, 'imprimiendo carro registrado y estado - disponible')
+                }
+                }else{
+                    console.log(carroRegistrado, carroRegistradoChecked, 'imprimiendo carro registrado y estado - no disponible')
+                }
+                    if(usuarioRegistrado && carroRegistrado ){
+                        console.log("clickenado el boton")
+                    }
+                    else{
+                        console.log('pendiente algo para la validacion del boton')
+                    }
+        }
+                
+            else{
+                setErrormess('El carro no existe')
+                console.log('El carro no existe consola')
+            }
+        }
+        else{
+            setErrormess('El usuario no existe')
+             console.log('El usuario no existe consola')
+        }
+*/
+      /*
+      const carroRegistrado = carrosRegistrados.find((u) => u.platenumber === data.platenumber)
+
+      if (usuarioRegistrado && carroRegistrado) {
+        console.log(usuariosRegistrados, carroRegistrado, 'si existen');
+      }else {
+        setErrormess('El usuario-placa no existen')
+        console.log('El usuario-placa no existen consola')
+      }
+*/
+     
+
+       
+
+          const verificarUsuario = (data) => {
+            const usuarioRegistrado = usuariosRegistrados.find((u) => u.usuario === data.usuario);
+            const carroRegistrado = carrosRegistrados.find((u) => u.platenumber === data.platenumber);
+            const carroRegistradoChecked = carrosRegistrados && carrosRegistrados.find((u) => u.isChecked === data.isChecked);
+          
+            if(usuarioRegistrado){
+              console.log(usuariosRegistrados, 'arreglo usuario');
+          
+              if(carroRegistrado){
+                console.log(carrosRegistrados, 'arreglo carro');
+          
+                if(carroRegistrado.isChecked === false){
+                  const nuevosCarrosRegistrados = [...carrosRegistrados];
+                  let index = nuevosCarrosRegistrados.findIndex((c) => c.platenumber === data.platenumber);
+                  nuevosCarrosRegistrados[index] = {...nuevosCarrosRegistrados[index], isChecked: true};
+          
+                  setErrormess('');
+                  reset();
+                  console.log(nuevosCarrosRegistrados, 'guardó el registro')
+                  navigation.navigate('CarrosGuardados', {carrosRegistrados: nuevosCarrosRegistrados, rentarCarros});
+                } else {
+                  setErrormess('Este carro no está disponible para rentar - gilma')
+                  console.log("El carro no está disponible - gilma");
+                }
+              } else {
+                setErrormess('Este carro no está registrado')
+                console.log("El carro no se encuentra registrado");
+              }
+            } else {
+              setErrormess('Este usuario no está registrado')
+              console.log('El usuario no está registrado');
+            }    
+          };
+          
